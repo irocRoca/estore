@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import styled from "styled-components";
 import { globalContext } from "../context/global";
+import { getCart } from "../services/fetch";
 import CartItem from "./CartItem";
 
 const Container = styled.div`
@@ -64,11 +65,21 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
-  const { cartOpen, setCartOpen } = useContext(globalContext);
+  const { cartOpen, setCartOpen, cartItems, setCartItems } =
+    useContext(globalContext);
 
   const handleClose = () => {
     setCartOpen(false);
   };
+
+  useEffect(() => {
+    const getCartData = async () => {
+      const res = await getCart();
+      console.log(res);
+      setCartItems(res.lineItems);
+    };
+    getCartData();
+  }, []);
 
   return (
     <Container isOpen={cartOpen}>
@@ -77,8 +88,13 @@ const Cart = () => {
       </Close>
       <Title>Cart</Title>
       <Wrapper>
-        <CartItem />
-        <CartItem />
+        {cartItems ? (
+          cartItems.map((item) => <CartItem key={item.id} product={item} />)
+        ) : (
+          <p>No items in cart</p>
+        )}
+        {/* <CartItem />
+        <CartItem /> */}
         <Checkout>
           <p>
             <span>Subtotal:</span> $20.99

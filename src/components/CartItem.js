@@ -42,18 +42,18 @@ const Price = styled.h4`
   margin-left: 20px;
 `;
 
-const CartItem = () => {
+const CartItem = ({ product }) => {
   return (
     <Container>
-      <Image src="https://images.unsplash.com/photo-1591369822096-ffd140ec948f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+      <Image src={product.item.image} />
       <Wrapper>
-        <Title>jean style dress</Title>
-        <Size>S</Size>
+        <Title>{product.item.title}</Title>
+        {/* <Size>S</Size> */}
         <Delete>Delete</Delete>
       </Wrapper>
       <PriceWrapper>
-        <Input value={1} />
-        <Price>$19.99</Price>
+        <Input value={product.qty} />
+        <Price>${product.extPrice}</Price>
       </PriceWrapper>
     </Container>
   );

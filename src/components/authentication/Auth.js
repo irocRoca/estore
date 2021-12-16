@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Register from "./Register";
 import Login from "./Login";
 import Modal from "../Modal";
+import { globalContext } from "../../context/global";
 
-export default function Auth({ open, setOpen }) {
+export default function Auth() {
   const [rotate, setRotate] = useState(false);
+  const { modelOpen, setModelOpen } = useContext(globalContext);
   const handleSwitch = () => setRotate(!rotate);
-  const handleModalClose = () => setOpen(false);
+  const handleModalClose = () => setModelOpen(false);
 
   return (
-    <Modal open={open} onClose={handleModalClose}>
+    <Modal open={modelOpen} onClose={handleModalClose}>
       {rotate ? (
         <Register
           viewSwitch={handleSwitch}

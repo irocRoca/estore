@@ -1,5 +1,7 @@
-import React from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
+import { globalContext } from "../../context/global";
+import { loginUser } from "../../services/fetch";
 
 const Container = styled.div`
   margin: 40px;
@@ -15,7 +17,7 @@ const Title = styled.h3`
   }
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -39,6 +41,11 @@ const Button = styled.button`
   border-radius: 10px;
   padding: 10px 0;
   text-transform: uppercase;
+  cursor: pointer;
+
+  &:disabled {
+    background: lightgrey;
+  }
 `;
 const Subtext = styled.p`
   margin-top: 20px;
@@ -53,16 +60,75 @@ const Subtext = styled.p`
   }
 `;
 
+const Message = styled.div`
+  background: rgb(253, 237, 237);
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  color: rgb(95, 33, 32);
+
+  & > p {
+    font-size: 12px;
+    line-height: 16px;
+  }
+`;
+
 export default function Login({ viewSwitch, handleModalClose }) {
+  const [errors, setErrors] = useState(null);
+  const { setModelOpen, setUser } = useContext(globalContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors(null);
+    const res = await loginUser({ email, password });
+    if (res.error) {
+      // we had errors need to diplay
+      setErrors(res);
+    } else {
+      // Successfully signed up
+      // Need to close model update user context
+      console.log(res);
+      setUser(res);
+      setModelOpen(false);
+    }
+  };
+
   return (
     <Container>
+      {errors && (
+        <Message>
+          <h4>Error</h4>
+          {Object.values(errors).map((item) => (
+            <p>{item}</p>
+          ))}
+        </Message>
+      )}
       <Title>
         Login<i className="fas fa-times" onClick={handleModalClose}></i>
       </Title>
       <Wrapper>
-        <Input placeholder="Email" />
-        <Input placeholder="Password" />
-        <Button>Login</Button>
+        <Input
+          placeholder="Email"
+          name="email"
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          placeholder="Password"
+          name="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button
+          onClick={handleSubmit}
+          disabled={password === "" || email === ""}
+        >
+          Login
+        </Button>
         <Subtext>
           Don't have an account yet? <span onClick={viewSwitch}>Sign up</span>
         </Subtext>

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { globalContext } from "../context/global";
+import { logoutUser } from "../services/fetch";
 
 const Wrapper = styled.div`
   display: flex;
@@ -49,13 +50,21 @@ const Button = styled.div`
   margin: 10px;
   font-weight: 500;
   padding: 10px;
+  text-transform: capitalize;
   &:hover {
     color: red;
   }
 `;
 
-const Navbar = ({ setModelOpen }) => {
-  const { setCartOpen } = useContext(globalContext);
+const Navbar = () => {
+  const { setCartOpen, setModelOpen, user, setUser } =
+    useContext(globalContext);
+
+  const handleLogout = async () => {
+    const res = await logoutUser();
+    console.log(res);
+    setUser(null);
+  };
 
   return (
     <Wrapper>
@@ -65,7 +74,14 @@ const Navbar = ({ setModelOpen }) => {
         </Logo>
       </Left>
       <Right>
-        <Button onClick={() => setModelOpen(true)}>Login</Button>
+        {user ? (
+          <>
+            <Button>{user.name}</Button>
+            <Button onClick={handleLogout}>Logout</Button>
+          </>
+        ) : (
+          <Button onClick={() => setModelOpen(true)}>Login</Button>
+        )}
         <Button onClick={() => setCartOpen(true)}>
           <i className="fas fa-shopping-cart"></i>
         </Button>

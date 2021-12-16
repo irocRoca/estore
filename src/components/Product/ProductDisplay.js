@@ -99,7 +99,7 @@ const ProductDisplay = () => {
       <Wrapper>
         {products &&
           products.map((item, index) => (
-            <Product key={index} url={item.image}>
+            <Product key={item._id} url={item.image}>
               <Info>
                 <Icon onClick={() => navigate(`/product/${item._id}`)}>
                   <i className="fas fa-search"></i>

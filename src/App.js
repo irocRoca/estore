@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 
@@ -18,12 +17,10 @@ const Container = styled.div`
 `;
 
 function App() {
-  const [open, setOpen] = useState(false);
-
   return (
     <>
       <GlobalContextProvider>
-        <Navbar setModelOpen={setOpen} />
+        <Navbar />
         <Cart />
         <Container>
           <Routes>
@@ -31,7 +28,7 @@ function App() {
             <Route path="/product/:id" element={<Product />} />
             <Route path="/" element={<Home />} />
           </Routes>
-          <Auth open={open} setOpen={setOpen} />
+          <Auth />
         </Container>
         <Footer />
       </GlobalContextProvider>

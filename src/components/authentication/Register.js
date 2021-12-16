@@ -1,5 +1,7 @@
-import { useReducer } from "react";
+import { useReducer, useState, useContext } from "react";
 import styled from "styled-components";
+import { globalContext } from "../../context/global";
+import { registerUser } from "../../services/fetch";
 
 const Container = styled.div`
   margin: 40px;
@@ -15,7 +17,7 @@ const Title = styled.h3`
   }
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -53,6 +55,19 @@ const Subtext = styled.p`
   }
 `;
 
+const Message = styled.div`
+  background: rgb(253, 237, 237);
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  color: rgb(95, 33, 32);
+
+  & > p {
+    font-size: 12px;
+    line-height: 16px;
+  }
+`;
+
 const initialState = {
   name: "",
   email: "",
@@ -66,9 +81,34 @@ function reducer(state, action) {
 
 function Register({ viewSwitch, handleModalClose }) {
   const [formState, dispatch] = useReducer(reducer, initialState);
+  const [errors, setErrors] = useState(null);
+  const { setModelOpen } = useContext(globalContext);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors(null);
+    const res = await registerUser(formState);
+    if (res.error) {
+      //we had errors need to diplay
+      console.log(res, "res inside component");
+      setErrors(res);
+    } else {
+      // Successfully signed up
+      // Need to close model update user context
+      setModelOpen(false);
+    }
+  };
 
   return (
     <Container>
+      {errors && (
+        <Message>
+          <h4>Error</h4>
+          {Object.values(errors).map((item) => (
+            <p>{item}</p>
+          ))}
+        </Message>
+      )}
       <Title>
         Register <i className="fas fa-times" onClick={handleModalClose}></i>
       </Title>
@@ -97,7 +137,7 @@ function Register({ viewSwitch, handleModalClose }) {
           value={formState.confirmPassword}
           onChange={(e) => dispatch({ [e.target.name]: e.target.value })}
         />
-        <Button>Sign up</Button>
+        <Button onClick={handleSubmit}>Sign up</Button>
         <Subtext>
           Already have an account? <span onClick={viewSwitch}>Login</span>
         </Subtext>

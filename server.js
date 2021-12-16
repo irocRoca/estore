@@ -1,12 +1,14 @@
 const express = require("express");
 const path = require("path");
 const favicon = require("serve-favicon");
+const cookieParser = require("cookie-parser");
 
 require("dotenv").config();
 require("./config/database");
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 // Serve to Production Code
 // app.use(favicon(path.join(__dirname, "build", "favicon.ico")));
@@ -14,6 +16,8 @@ app.use(express.json());
 
 // API Request
 app.use("/api/products", require("./routes/product"));
+app.use("/api/user", require("./routes/user"));
+app.use("/api/orders", require("./routes/order"));
 
 // Return index file
 // app.use("/*", (req, res) =>

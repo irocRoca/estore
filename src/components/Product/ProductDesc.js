@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { getProduct } from "../../services/fetch";
 import { device } from "../../helper/sizes";
+import { globalContext } from "../../context/global";
 
 const Wrapper = styled.div`
   max-width: 900px;
@@ -89,6 +90,11 @@ const Button = styled.button`
   font-weight: 600;
   font-size: 18px;
   cursor: pointer;
+
+  &:disabled {
+    background: lightgrey;
+    content: "Sign up";
+  }
 `;
 
 const Specs = styled.div`
@@ -144,6 +150,7 @@ const ShipSubHeading = styled.h5`
 const ProductDesc = ({ id }) => {
   const [active, setActive] = useState(null);
   const [product, setProduct] = useState(null);
+  const { user } = useContext(globalContext);
   const sizes = ["S", "M", "L", "XL"];
 
   useEffect(() => {
@@ -153,6 +160,11 @@ const ProductDesc = ({ id }) => {
     };
     getData();
   }, [id]);
+
+  const handleAddToCart = () => {
+    if (!user) {
+    }
+  };
 
   return (
     <Wrapper>
@@ -179,7 +191,7 @@ const ProductDesc = ({ id }) => {
                 ))}
               </Sizes>
               <Price>$19.99</Price>
-              <Button>Add to Cart</Button>
+              <Button disabled={!user}>Add to Cart</Button>
             </ProductInfo>
           </ProductContainer>
           <ProductContainer>
