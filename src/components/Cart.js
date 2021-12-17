@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 
 import styled from "styled-components";
 import { globalContext } from "../context/global";
-import { getCart } from "../services/fetch";
+import { deleteItem, getCart, updateQtyCart } from "../services/fetch";
 import CartItem from "./CartItem";
 
 const Container = styled.div`
@@ -32,6 +32,13 @@ const Close = styled.div`
     padding: 10px;
     cursor: pointer;
   }
+`;
+
+const SubHeading = styled.p`
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 18px;
+  padding: 20px;
 `;
 
 const Wrapper = styled.div`
@@ -65,7 +72,7 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
-  const { cartOpen, setCartOpen, cartItems, setCartItems } =
+  const { cartOpen, setCartOpen, cartItems, setCartItems, user } =
     useContext(globalContext);
 
   const handleClose = () => {
@@ -73,13 +80,27 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    const getCartData = async () => {
-      const res = await getCart();
-      console.log(res);
-      setCartItems(res.lineItems);
-    };
-    getCartData();
-  }, []);
+    if (user) {
+      const getCartData = async () => {
+        const res = await getCart();
+        setCartItems(res);
+      };
+      getCartData();
+    }
+  }, [user, setCartItems]);
+
+  const handleChangeQty = async (id, qty) => {
+    if (qty >= 1) {
+      const res = await updateQtyCart(id, qty);
+      setCartItems(res);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const res = await deleteItem(id);
+    console.log(res);
+    setCartItems(res);
+  };
 
   return (
     <Container isOpen={cartOpen}>
@@ -88,25 +109,45 @@ const Cart = () => {
       </Close>
       <Title>Cart</Title>
       <Wrapper>
-        {cartItems ? (
-          cartItems.map((item) => <CartItem key={item.id} product={item} />)
+        {cartItems.lineItems.length > 0 ? (
+          cartItems.lineItems.map((item) => (
+            <CartItem
+              key={item.id}
+              product={item}
+              handleChangeQty={handleChangeQty}
+              handleDelete={handleDelete}
+            />
+          ))
         ) : (
-          <p>No items in cart</p>
+          <SubHeading>No items currently in cart</SubHeading>
         )}
         {/* <CartItem />
         <CartItem /> */}
-        <Checkout>
-          <p>
-            <span>Subtotal:</span> $20.99
-          </p>
-          <p>
-            <span>Tax:</span> $20.99
-          </p>
-          <p>
-            <span>Total:</span> $20.99
-          </p>
-        </Checkout>
-        <Button>Checkout</Button>
+        {cartItems.lineItems.length > 0 ? (
+          <>
+            <Checkout>
+              <p>
+                <span>Subtotal:</span>{" "}
+                {cartItems && `$${cartItems.orderTotal.toFixed(2)}`}
+              </p>
+              <p>
+                <span>Tax:</span>{" "}
+                {cartItems && `$${(cartItems.orderTotal * 0.07).toFixed(2)}`}
+              </p>
+              <p>
+                <span>Total:</span>{" "}
+                {cartItems &&
+                  `$${(
+                    cartItems.orderTotal +
+                    cartItems.orderTotal * 0.07
+                  ).toFixed(2)}`}
+              </p>
+            </Checkout>
+            <Button>Checkout</Button>
+          </>
+        ) : (
+          <></>
+        )}
       </Wrapper>
     </Container>
   );

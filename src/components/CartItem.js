@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -24,6 +25,7 @@ const Delete = styled.p`
   margin-top: auto;
   color: #b1b1b1;
   font-size: 14px;
+  cursor: pointer;
 `;
 
 const PriceWrapper = styled.div`
@@ -42,18 +44,29 @@ const Price = styled.h4`
   margin-left: 20px;
 `;
 
-const CartItem = ({ product }) => {
+const CartItem = ({ product, handleChangeQty, handleDelete }) => {
+  const [amount, setAmount] = useState(product.qty);
+
+  const handleChange = (e) => {
+    setAmount(e.target.value);
+    handleChangeQty(product._id, e.target.value);
+  };
+
+  useEffect(() => {
+    setAmount(product.qty);
+  }, [product.qty]);
+
   return (
     <Container>
       <Image src={product.item.image} />
       <Wrapper>
         <Title>{product.item.title}</Title>
         {/* <Size>S</Size> */}
-        <Delete>Delete</Delete>
+        <Delete onClick={() => handleDelete(product.item._id)}>Delete</Delete>
       </Wrapper>
       <PriceWrapper>
-        <Input value={product.qty} />
-        <Price>${product.extPrice}</Price>
+        <Input value={amount} onChange={handleChange} />
+        <Price>${product.extPrice.toFixed(2)}</Price>
       </PriceWrapper>
     </Container>
   );

@@ -22,3 +22,21 @@ module.exports.addToCart = async (req, res) => {
   await cart.addItemToCart(req.params.id);
   res.json(cart);
 };
+
+module.exports.updateItemQty = async (req, res) => {
+  const cart = await Order.getCart(req.user.id);
+  const line = cart.lineItems.findIndex((elem) => elem._id == req.params.id);
+  cart.lineItems[line].qty = parseInt(req.body.qty);
+  await cart.save();
+  return res.json(cart);
+};
+
+module.exports.deleteItem = async (req, res) => {
+  const cart = await Order.getCart(req.user.id);
+  const index = cart.lineItems.findIndex(
+    (element) => element.item._id == req.params.id
+  );
+  cart.lineItems.splice(index, 1);
+  await cart.save();
+  return res.json(cart);
+};

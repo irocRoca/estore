@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { device } from "../../helper/sizes";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getProductImages } from "../../services/fetch";
+import { getProductImages, addToCart } from "../../services/fetch";
+import { globalContext } from "../../context/global";
 
 const Wrapper = styled.div`
   display: flex;
@@ -84,6 +85,7 @@ const Icon = styled.div`
 const ProductDisplay = () => {
   const [products, setProducts] = useState(null);
   let navigate = useNavigate();
+  const { user, setCartItems } = useContext(globalContext);
 
   useEffect(() => {
     const getData = async () => {
@@ -92,6 +94,17 @@ const ProductDisplay = () => {
     };
     getData();
   }, []);
+
+  const handleAddToCart = async (id) => {
+    if (!user) {
+      // Open model
+    } else {
+      const res = await addToCart(id);
+      // Should return the new cart and update the cart
+      console.log(res);
+      setCartItems(res);
+    }
+  };
 
   return (
     <>
@@ -104,7 +117,7 @@ const ProductDisplay = () => {
                 <Icon onClick={() => navigate(`/product/${item._id}`)}>
                   <i className="fas fa-search"></i>
                 </Icon>
-                <Icon>
+                <Icon onClick={() => handleAddToCart(item._id)}>
                   <i className="fas fa-cart-plus"></i>
                 </Icon>
               </Info>

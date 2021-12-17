@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import { getProduct } from "../../services/fetch";
+import { addToCart, getProduct } from "../../services/fetch";
 import { device } from "../../helper/sizes";
 import { globalContext } from "../../context/global";
 
@@ -150,7 +150,7 @@ const ShipSubHeading = styled.h5`
 const ProductDesc = ({ id }) => {
   const [active, setActive] = useState(null);
   const [product, setProduct] = useState(null);
-  const { user } = useContext(globalContext);
+  const { user, setCartItems } = useContext(globalContext);
   const sizes = ["S", "M", "L", "XL"];
 
   useEffect(() => {
@@ -161,8 +161,14 @@ const ProductDesc = ({ id }) => {
     getData();
   }, [id]);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (!user) {
+      // Open model
+    } else {
+      const res = await addToCart(id);
+      // Should return the new cart and update the cart
+      console.log(res);
+      setCartItems(res);
     }
   };
 
@@ -191,7 +197,9 @@ const ProductDesc = ({ id }) => {
                 ))}
               </Sizes>
               <Price>$19.99</Price>
-              <Button disabled={!user}>Add to Cart</Button>
+              <Button disabled={!user} onClick={handleAddToCart}>
+                Add to Cart
+              </Button>
             </ProductInfo>
           </ProductContainer>
           <ProductContainer>

@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 const Product = (props) => {
   let { id } = useParams();
 
+  //Should fetch here and pass to component and all logic
+
   return (
     <>
       <ProductDesc id={id} />

@@ -67,3 +67,33 @@ export const getCart = async () => {
     console.log(err);
   }
 };
+
+export const addToCart = async (id) => {
+  try {
+    const res = await axios.post(`/api/orders/cart/items/${id}`);
+    console.log(res, "INSIDE ADD TO CART FETCh");
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const updateQtyCart = async (id, qty) => {
+  try {
+    const res = await axios.put(`/api/orders/cart/update/${id}`, { qty });
+    console.log(res, "INSIDE UPDATE QTY");
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteItem = async (id) => {
+  try {
+    const res = await axios.delete(`/api/orders/cart/delete/${id}`);
+    console.log(res, "INSIDE DELETE FETCH");
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
