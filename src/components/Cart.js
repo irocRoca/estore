@@ -102,6 +102,9 @@ const Cart = () => {
     setCartItems(res);
   };
 
+  console.log(cartItems);
+  // if (cartItems == null) return null;
+
   return (
     <Container isOpen={cartOpen}>
       <Close>
@@ -109,7 +112,8 @@ const Cart = () => {
       </Close>
       <Title>Cart</Title>
       <Wrapper>
-        {cartItems.lineItems.length > 0 ? (
+        {/* Need a way to find out THIS */}
+        {cartItems != null ? (
           cartItems.lineItems.map((item) => (
             <CartItem
               key={item.id}
@@ -123,19 +127,19 @@ const Cart = () => {
         )}
         {/* <CartItem />
         <CartItem /> */}
-        {cartItems.lineItems.length > 0 ? (
+        {cartItems != null ? (
           <>
             <Checkout>
               <p>
-                <span>Subtotal:</span>{" "}
+                <span>Subtotal:</span>
                 {cartItems && `$${cartItems.orderTotal.toFixed(2)}`}
               </p>
               <p>
-                <span>Tax:</span>{" "}
+                <span>Tax:</span>
                 {cartItems && `$${(cartItems.orderTotal * 0.07).toFixed(2)}`}
               </p>
               <p>
-                <span>Total:</span>{" "}
+                <span>Total:</span>
                 {cartItems &&
                   `$${(
                     cartItems.orderTotal +

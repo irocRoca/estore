@@ -9,6 +9,7 @@ const Container = styled.div`
 
 const Image = styled.img`
   height: 80px;
+  width: 80px;
   object-fit: cover;
 `;
 
@@ -36,8 +37,10 @@ const PriceWrapper = styled.div`
 `;
 
 const Input = styled.input`
-  width: 20px;
+  min-width: 20px;
+  max-width: 35px;
   height: 20px;
+  text-align: center;
 `;
 
 const Price = styled.h4`

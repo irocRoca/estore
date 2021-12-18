@@ -12,6 +12,7 @@ const Wrapper = styled.div`
 const ProductContainer = styled.div`
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 
   @media ${device.tablet} {
     flex-direction: row;

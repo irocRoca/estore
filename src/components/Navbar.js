@@ -57,13 +57,14 @@ const Button = styled.div`
 `;
 
 const Navbar = () => {
-  const { setCartOpen, setModelOpen, user, setUser } =
+  const { setCartOpen, setModelOpen, user, setUser, setCartItems } =
     useContext(globalContext);
 
   const handleLogout = async () => {
     const res = await logoutUser();
     console.log(res);
     setUser(null);
+    setCartItems([]);
   };
 
   return (
