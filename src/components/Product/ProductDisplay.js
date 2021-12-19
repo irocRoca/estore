@@ -1,28 +1,6 @@
 import styled from "styled-components";
 import { device } from "../../helper/sizes";
-import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getProductImages, addToCart } from "../../services/fetch";
-import { globalContext } from "../../context/global";
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-
-  @media ${device.laptop} {
-  }
-`;
-
-const Title = styled.h2`
-  text-align: left;
-  margin: 60px 0 45px 25px;
-  font-size: 28px;
-
-  @media ${device.tablet} {
-    font-size: 34px;
-  }
-`;
 
 const Product = styled.div`
   width: 170px;
@@ -82,49 +60,20 @@ const Icon = styled.div`
   }
 `;
 
-const ProductDisplay = () => {
-  const [products, setProducts] = useState(null);
+const ProductDisplay = ({ product, handleAddToCart }) => {
   let navigate = useNavigate();
-  const { user, setCartItems } = useContext(globalContext);
-
-  useEffect(() => {
-    const getData = async () => {
-      const data = await getProductImages();
-      setProducts(data);
-    };
-    getData();
-  }, []);
-
-  const handleAddToCart = async (id) => {
-    if (!user) {
-      // Open model
-    } else {
-      const res = await addToCart(id);
-      // Should return the new cart and update the cart
-      console.log(res);
-      setCartItems(res);
-    }
-  };
 
   return (
-    <>
-      <Title>Most Popular</Title>
-      <Wrapper>
-        {products &&
-          products.map((item, index) => (
-            <Product key={item._id} url={item.image}>
-              <Info>
-                <Icon onClick={() => navigate(`/product/${item._id}`)}>
-                  <i className="fas fa-search"></i>
-                </Icon>
-                <Icon onClick={() => handleAddToCart(item._id)}>
-                  <i className="fas fa-cart-plus"></i>
-                </Icon>
-              </Info>
-            </Product>
-          ))}
-      </Wrapper>
-    </>
+    <Product url={product.image}>
+      <Info>
+        <Icon onClick={() => navigate(`/product/${product._id}`)}>
+          <i className="fas fa-search"></i>
+        </Icon>
+        <Icon onClick={() => handleAddToCart(product._id)}>
+          <i className="fas fa-cart-plus"></i>
+        </Icon>
+      </Info>
+    </Product>
   );
 };
 

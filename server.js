@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const favicon = require("serve-favicon");
 const cookieParser = require("cookie-parser");
+const { verifyAuth } = require("./middleware/auth");
 
 require("dotenv").config();
 require("./config/database");
@@ -17,7 +18,7 @@ app.use(cookieParser());
 // API Request
 app.use("/api/products", require("./routes/product"));
 app.use("/api/user", require("./routes/user"));
-app.use("/api/orders", require("./routes/order"));
+app.use("/api/orders", verifyAuth, require("./routes/order"));
 
 // Return index file
 // app.use("/*", (req, res) =>

@@ -91,6 +91,13 @@ const Button = styled.button`
   font-weight: 600;
   font-size: 18px;
   cursor: pointer;
+  transition: all 200ms ease;
+
+  &:hover {
+    color: #fc4545;
+    border: 1px solid #fc4545;
+    background: white;
+  }
 
   &:disabled {
     background: lightgrey;

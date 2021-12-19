@@ -61,7 +61,6 @@ export const checkAuth = async () => {
 export const getCart = async () => {
   try {
     const res = await axios.get("/api/orders/cart");
-    console.log(res, "INSIDE FETCh");
     return res.data;
   } catch (err) {
     console.log(err);
@@ -71,7 +70,6 @@ export const getCart = async () => {
 export const addToCart = async (id) => {
   try {
     const res = await axios.post(`/api/orders/cart/items/${id}`);
-    console.log(res, "INSIDE ADD TO CART FETCh");
     return res.data;
   } catch (err) {
     console.log(err);
@@ -92,6 +90,15 @@ export const deleteItem = async (id) => {
   try {
     const res = await axios.delete(`/api/orders/cart/delete/${id}`);
     console.log(res, "INSIDE DELETE FETCH");
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const checkoutCart = async () => {
+  try {
+    const res = await axios.post("/api/orders/cart/checkout");
     return res.data;
   } catch (err) {
     console.log(err);

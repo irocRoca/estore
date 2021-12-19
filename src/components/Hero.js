@@ -33,7 +33,6 @@ const Right = styled.div`
   @media ${device.laptop} {
     transform: none;
     margin: 25px;
-    background: none;
   }
 `;
 

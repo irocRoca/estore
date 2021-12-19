@@ -10,7 +10,7 @@ module.exports.signUp = async (req, res) => {
   try {
     const user = await User.create({ email, name, password });
     const token = user.createJWT();
-    res.cookie("token", token, { httpOnly: true });
+    res.cookie("token", token, { httpOnly: true, sameSite: "Lax" });
     // Figure out what to send to user
     return res.status(200).json(user);
   } catch (err) {

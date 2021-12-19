@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getProducts } from "../services/fetch";
+import { device } from "../helper/sizes";
 
 const Header = styled.h1`
   margin: 60px 20px;
@@ -9,15 +10,30 @@ const Header = styled.h1`
 `;
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 15px;
-  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
   padding: 20px;
+
+  @media ${device.laptop} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1200px;
+  }
 `;
 const Card = styled.div`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
     rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+`;
+
+const ImageWrap = styled.div`
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    background: #fc4545;
+  }
 `;
 const Image = styled.img`
   height: 320px;
@@ -69,11 +85,10 @@ const ProductList = () => {
       <Header>Products</Header>
       <Container>
         {products.map((item) => (
-          <Card
-            key={item.index}
-            onClick={() => navigate(`/product/${item._id}`)}
-          >
-            <Image src={item.image} />
+          <Card key={item._id} onClick={() => navigate(`/product/${item._id}`)}>
+            <ImageWrap>
+              <Image src={item.image} />
+            </ImageWrap>
             <Wrapper>
               <div>
                 <Title>{item.title}</Title>

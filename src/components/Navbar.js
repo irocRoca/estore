@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   height: 60px;
   max-width: 1200px;
   margin: 0 auto;
+  border-bottom: 1px solid #ebebeb;
 `;
 const Left = styled.div`
   flex-grow: 1;

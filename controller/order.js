@@ -40,3 +40,10 @@ module.exports.deleteItem = async (req, res) => {
   await cart.save();
   return res.json(cart);
 };
+
+module.exports.cartCheckout = async (req, res) => {
+  const cart = await Order.getCart(req.user.id);
+  cart.isPaid = true;
+  await cart.save();
+  return res.json(cart);
+};
