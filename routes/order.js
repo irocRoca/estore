@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const orderCtrl = require("../controller/order");
 
+router.get("/", orderCtrl.getOrders);
 router.get("/cart", orderCtrl.getCart);
 router.post("/cart/items/:id", orderCtrl.addToCart);
 router.post("/cart/checkout", orderCtrl.cartCheckout);

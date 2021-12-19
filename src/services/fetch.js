@@ -104,3 +104,12 @@ export const checkoutCart = async () => {
     console.log(err);
   }
 };
+
+export const getOrders = async () => {
+  try {
+    const res = await axios.post("/api/orders/");
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

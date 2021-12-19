@@ -4,6 +4,7 @@
 // router.put("/cart/update/:id", orderCtrl.updateItemQty);
 // router.delete("/cart/delete/:id", orderCtrl.deleteItem);
 
+const mongoose = require("mongoose");
 const Order = require("../model/order");
 const Product = require("../model/product");
 
@@ -46,4 +47,12 @@ module.exports.cartCheckout = async (req, res) => {
   cart.isPaid = true;
   await cart.save();
   return res.json(cart);
+};
+
+module.exports.getOrders = async (req, res) => {
+  const orders = await Order.find({
+    user: mongoose.Types.ObjectId(req.user.id),
+    isPaid: true,
+  });
+  return res.json(orders);
 };

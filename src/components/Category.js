@@ -68,7 +68,7 @@ const Category = () => {
       >
         <Container>
           <Heading>Jeans</Heading>
-          <Button to="/">Shop Now</Button>
+          <Button to="/products">Shop Now</Button>
         </Container>
       </Box>
       <Box
@@ -79,7 +79,7 @@ const Category = () => {
         <Container>
           <Heading>Mens</Heading>
 
-          <Button to="/">Shop Now</Button>
+          <Button to="/products">Shop Now</Button>
         </Container>
       </Box>
       <Box
@@ -89,7 +89,7 @@ const Category = () => {
       >
         <Container>
           <Heading>Women</Heading>
-          <Button to="/">Shop Now</Button>
+          <Button to="/products">Shop Now</Button>
         </Container>
       </Box>
     </Wrapper>

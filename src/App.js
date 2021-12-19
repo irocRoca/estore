@@ -20,6 +20,7 @@ const Container = styled.div`
 function App() {
   return (
     <>
+      {/* Need to add protected routes */}
       <GlobalContextProvider>
         <Navbar />
         <Cart />
