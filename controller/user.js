@@ -1,12 +1,12 @@
 const User = require("../model/user");
 const { equals } = require("validator");
 const jwt = require("jsonwebtoken");
+const { loginValidate, registerValidate } = require("../src/helper/validation");
 
 module.exports.signUp = async (req, res) => {
   const { email, name, password, confirmPassword } = req.body;
-  if (!equals(password, confirmPassword)) {
-    return res.status(400).json({ password: "Incorrect" });
-  }
+  const valid = registerValidate(req.body);
+  if (valid.error) return res.json(valid);
   try {
     const user = await User.create({ email, name, password });
     const token = user.createJWT();
@@ -22,6 +22,8 @@ module.exports.signUp = async (req, res) => {
 
 module.exports.login = async (req, res) => {
   const { email, password } = req.body;
+  const valid = loginValidate(req.body);
+  if (valid.error) return res.json(valid);
   // Check for blank fields
   try {
     const user = await User.login(email, password);
@@ -60,9 +62,15 @@ function handleErrors(err) {
   const errors = { error: false };
 
   if (err.code === 11000) {
-    errors["email"] = "Email only registered";
+    errors["email"] = "Email already registered";
     errors["error"] = true;
     return errors;
+  }
+
+  console.debug(err.message, "MESSAGE ");
+  if (err.message.includes("Invalid Credentials")) {
+    errors["message"] = err.message;
+    errors["error"] = true;
   }
 
   if (err.message.includes("user validation failed")) {

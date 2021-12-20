@@ -61,7 +61,7 @@ const Skeleton = styled.div`
 
 const Home = () => {
   const [products, setProducts] = useState(null);
-  const { user, setCartItems } = useContext(globalContext);
+  const { user, setCartItems, setModelOpen } = useContext(globalContext);
 
   useEffect(() => {
     const getData = async () => {
@@ -71,9 +71,10 @@ const Home = () => {
     getData();
   }, []);
 
-  const handleAddToCart = async (id) => {
+  const handleAddToCart = async (e, id) => {
     if (!user) {
       // Open model
+      setModelOpen(true);
     } else {
       const res = await addToCart(id);
       // Should return the new cart and update the cart

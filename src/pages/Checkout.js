@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Form from "../components/checkout/Form";
 import Item from "../components/checkout/Item";
@@ -22,6 +23,7 @@ const SubHeading = styled.h2`
 
 const Checkout = () => {
   const { cartItems, setCartItems } = useContext(globalContext);
+  let navigate = useNavigate();
 
   const handleDelete = async (id) => {
     const res = await deleteItem(id);
@@ -33,7 +35,7 @@ const Checkout = () => {
     console.log("IN HERE RAN");
     const res = await checkoutCart(); // Returns cart
     // REDIRECT to orders page
-    //
+    navigate("/orders");
   };
 
   return (

@@ -2,7 +2,7 @@ import { useReducer } from "react";
 import styled from "styled-components";
 import Input from "./Input";
 //#1e2a66 ,, #6262cd
-
+//#5e98aa
 const Container = styled.form`
   margin: 40px;
   padding: 20px;
@@ -25,12 +25,17 @@ const Button = styled.button`
   padding: 15px 0;
   width: 100%;
   color: white;
-  background: blue;
   border: none;
   border-radius: 5px;
   font-weight: bold;
   background: #fc4545;
   margin-top: 20px;
+  &:hover {
+    background: #ab1d1d;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    cursor: pointer;
+  }
 `;
 
 const Checkout = styled.div`

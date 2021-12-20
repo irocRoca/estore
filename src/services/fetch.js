@@ -107,7 +107,7 @@ export const checkoutCart = async () => {
 
 export const getOrders = async () => {
   try {
-    const res = await axios.post("/api/orders/");
+    const res = await axios.get("/api/orders");
     return res.data;
   } catch (err) {
     console.log(err);

@@ -34,7 +34,7 @@ const Logo = styled.div`
 const Links = styled(Link)`
   padding: 0 10px;
   text-decoration: none;
-  color: black;
+  color: #535461;
   font-size: 16px;
 
   > i {
@@ -51,9 +51,10 @@ const Button = styled.div`
   margin: 10px;
   font-weight: 500;
   padding: 10px;
+  color: #535461;
   text-transform: capitalize;
   &:hover {
-    color: red;
+    border-bottom: 1px solid #535461;
   }
 `;
 
@@ -62,10 +63,9 @@ const Navbar = () => {
     useContext(globalContext);
 
   const handleLogout = async () => {
-    const res = await logoutUser();
-    console.log(res);
+    await logoutUser();
     setUser(null);
-    setCartItems([]);
+    setCartItems(null);
   };
 
   return (

@@ -83,6 +83,7 @@ export default function Login({ viewSwitch, handleModalClose }) {
     e.preventDefault();
     setErrors(null);
     const res = await loginUser({ email, password });
+    console.log(res, "FROM SERVER");
     if (res.error) {
       // we had errors need to diplay
       setErrors(res);

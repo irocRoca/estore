@@ -82,7 +82,7 @@ function reducer(state, action) {
 function Register({ viewSwitch, handleModalClose }) {
   const [formState, dispatch] = useReducer(reducer, initialState);
   const [errors, setErrors] = useState(null);
-  const { setModelOpen } = useContext(globalContext);
+  const { setModelOpen, setUser } = useContext(globalContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -95,6 +95,7 @@ function Register({ viewSwitch, handleModalClose }) {
     } else {
       // Successfully signed up
       // Need to close model update user context
+      setUser(res);
       setModelOpen(false);
     }
   };
@@ -104,8 +105,8 @@ function Register({ viewSwitch, handleModalClose }) {
       {errors && (
         <Message>
           <h4>Error</h4>
-          {Object.values(errors).map((item) => (
-            <p>{item}</p>
+          {Object.values(errors).map((item, index) => (
+            <p key={index}>{item}</p>
           ))}
         </Message>
       )}
@@ -129,11 +130,13 @@ function Register({ viewSwitch, handleModalClose }) {
           placeholder="Password"
           name="password"
           value={formState.password}
+          type="password"
           onChange={(e) => dispatch({ [e.target.name]: e.target.value })}
         />
         <Input
           placeholder="Confirm Password"
           name="confirmPassword"
+          type="password"
           value={formState.confirmPassword}
           onChange={(e) => dispatch({ [e.target.name]: e.target.value })}
         />

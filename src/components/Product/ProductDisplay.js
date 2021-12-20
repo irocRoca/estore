@@ -69,7 +69,7 @@ const ProductDisplay = ({ product, handleAddToCart }) => {
         <Icon onClick={() => navigate(`/product/${product._id}`)}>
           <i className="fas fa-search"></i>
         </Icon>
-        <Icon onClick={() => handleAddToCart(product._id)}>
+        <Icon onClick={(e) => handleAddToCart(e, product._id)}>
           <i className="fas fa-cart-plus"></i>
         </Icon>
       </Info>

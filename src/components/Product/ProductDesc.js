@@ -32,6 +32,7 @@ const ProductInfo = styled.div`
 const Title = styled.h3`
   font-size: 32px;
   margin: 15px 0;
+  text-transform: capitalize;
 `;
 
 const Desc = styled.p`
@@ -93,7 +94,7 @@ const Button = styled.button`
   cursor: pointer;
   transition: all 200ms ease;
 
-  &:hover {
+  &:hover:not([disabled]) {
     color: #fc4545;
     border: 1px solid #fc4545;
     background: white;
@@ -101,7 +102,7 @@ const Button = styled.button`
 
   &:disabled {
     background: lightgrey;
-    content: "Sign up";
+    cursor: not-allowed;
   }
 `;
 

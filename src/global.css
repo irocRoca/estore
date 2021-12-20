@@ -13,6 +13,13 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+table,
+tbody,
+td,
+tr {
+  display: block;
+}
+
 @keyframes load {
   from {
     left: -150px;

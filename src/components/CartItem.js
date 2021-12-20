@@ -21,12 +21,16 @@ const Title = styled.h4`
   text-transform: capitalize;
   margin-bottom: 10px;
 `;
-const Size = styled.p``;
 const Delete = styled.p`
   margin-top: auto;
   color: #b1b1b1;
   font-size: 14px;
+  width: fit-content;
   cursor: pointer;
+  transition: all 100ms ease;
+  &:hover {
+    border-bottom: 1px solid #b1b1b1;
+  }
 `;
 
 const PriceWrapper = styled.div`

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getProducts } from "../services/fetch";
+import { addToCart, getProducts } from "../services/fetch";
 import { device } from "../helper/sizes";
+import { globalContext } from "../context/global";
 
 const Header = styled.h1`
   margin: 60px 20px;
@@ -68,6 +69,7 @@ const Price = styled.p``;
 const ProductList = () => {
   const [products, setProducts] = useState(null);
   let navigate = useNavigate();
+  const { user, setCartItems } = useContext(globalContext);
 
   useEffect(() => {
     const getData = async () => {
@@ -77,6 +79,15 @@ const ProductList = () => {
     getData();
   }, []);
 
+  const handleAddToCart = async (e, id) => {
+    if (!user) {
+      // Open model
+    } else {
+      const res = await addToCart(id);
+      // Should return the new cart and update the cart
+      setCartItems(res);
+    }
+  };
   // Return a skeletion of 4 books loading..
   if (!products) return null;
 
@@ -85,16 +96,19 @@ const ProductList = () => {
       <Header>Products</Header>
       <Container>
         {products.map((item) => (
-          <Card key={item._id} onClick={() => navigate(`/product/${item._id}`)}>
+          <Card key={item._id}>
             <ImageWrap>
-              <Image src={item.image} />
+              <Image
+                src={item.image}
+                onClick={() => navigate(`/product/${item._id}`)}
+              />
             </ImageWrap>
             <Wrapper>
               <div>
                 <Title>{item.title}</Title>
                 <Price>${item.price}</Price>
               </div>
-              <Button>+</Button>
+              <Button onClick={handleAddToCart}>+</Button>
             </Wrapper>
           </Card>
         ))}

@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import Cart from "./components/Cart";
 import ProductList from "./pages/ProductList";
 import Checkout from "./pages/Checkout";
+import Orders from "./pages/Orders";
 
 const Container = styled.div`
   max-width: 1200px;
@@ -26,6 +27,7 @@ function App() {
         <Cart />
         <Container>
           <Routes>
+            <Route path="/orders" element={<Orders />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/products" element={<ProductList />} />
             <Route path="/product/:id" element={<Product />} />
