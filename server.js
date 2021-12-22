@@ -12,18 +12,18 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Serve to Production Code
-// app.use(favicon(path.join(__dirname, "build", "favicon.ico")));
-//app.use(express.static(path.join(__dirname, "build")));
+app.use(favicon(path.join(__dirname, "build", "favicon.ico")));
+app.use(express.static(path.join(__dirname, "build")));
 
 // API Request
 app.use("/api/products", require("./routes/product"));
 app.use("/api/user", require("./routes/user"));
 app.use("/api/orders", verifyAuth, require("./routes/order"));
 
-// Return index file
-// app.use("/*", (req, res) =>
-//   res.sendFile(path.join(__dirname, "build", "index.html"))
-// );
+//Return index file
+app.use("/*", (req, res) =>
+  res.sendFile(path.join(__dirname, "build", "index.html"))
+);
 
 const port = process.env.PORT || 5000;
 

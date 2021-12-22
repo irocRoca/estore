@@ -22,7 +22,6 @@ const Container = styled.div`
 function App() {
   return (
     <>
-      {/* Need to add protected routes */}
       <GlobalContextProvider>
         <Navbar />
         <Cart />
@@ -47,6 +46,8 @@ function App() {
             <Route path="/products" element={<ProductList />} />
             <Route path="/product/:id" element={<Product />} />
             <Route path="/" element={<Home />} />
+            {/* No 404 page created. Instead redirect to home*/}
+            <Route path="/*" element={<Home />} />
           </Routes>
           <Auth />
         </Container>
