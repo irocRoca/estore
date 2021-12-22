@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { globalContext } from "../context/global";
 import { deleteItem, getCart, updateQtyCart } from "../services/fetch";
@@ -38,10 +39,12 @@ const Close = styled.div`
   font-size: 24px;
   padding: 20px 20px 10px 0;
   text-align: right;
-
-  & > i {
-    padding: 10px;
+  & > svg {
     cursor: pointer;
+    transition: color 100ms ease;
+    &:hover {
+      color: red;
+    }
   }
 `;
 
@@ -145,7 +148,7 @@ const Cart = () => {
       {cartOpen && <Backdrop onClick={handleClose} />}
       <Container isOpen={cartOpen}>
         <Close>
-          <i className="fas fa-times" onClick={handleClose}></i>
+          <FontAwesomeIcon icon={faTimes} onClick={handleClose} />
         </Close>
         <Title>Cart</Title>
         {(cartItems != null) & (cartItems?.lineItems.length > 0) ? (

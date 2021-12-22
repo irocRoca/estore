@@ -95,15 +95,10 @@ const Button = styled.button`
   cursor: pointer;
   transition: all 200ms ease;
 
-  &:hover:not([disabled]) {
+  &:hover {
     color: #fc4545;
     border: 1px solid #fc4545;
     background: white;
-  }
-
-  &:disabled {
-    background: lightgrey;
-    cursor: not-allowed;
   }
 `;
 
@@ -160,7 +155,8 @@ const ShipSubHeading = styled.h5`
 const ProductDesc = ({ id }) => {
   const [active, setActive] = useState(null);
   const [product, setProduct] = useState(null);
-  const { user, setCartItems, setCartOpen } = useContext(globalContext);
+  const { user, setCartItems, setCartOpen, setModelOpen } =
+    useContext(globalContext);
   const sizes = ["S", "M", "L", "XL"];
 
   useEffect(() => {
@@ -173,10 +169,9 @@ const ProductDesc = ({ id }) => {
 
   const handleAddToCart = async () => {
     if (!user) {
-      // Open model
+      setModelOpen(true);
     } else {
       const res = await addToCart(id);
-      // Should return the new cart and update the cart
       setCartOpen(true);
       setCartItems(res);
     }
@@ -207,9 +202,7 @@ const ProductDesc = ({ id }) => {
                 ))}
               </Sizes>
               <Price>$19.99</Price>
-              <Button disabled={!user} onClick={handleAddToCart}>
-                Add to Cart
-              </Button>
+              <Button onClick={handleAddToCart}>Add to Cart</Button>
             </ProductInfo>
           </ProductContainer>
           <ProductContainer>

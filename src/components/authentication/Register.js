@@ -89,12 +89,8 @@ function Register({ viewSwitch, handleModalClose }) {
     setErrors(null);
     const res = await registerUser(formState);
     if (res.error) {
-      //we had errors need to diplay
-      console.log(res, "res inside component");
       setErrors(res);
     } else {
-      // Successfully signed up
-      // Need to close model update user context
       setUser(res);
       setModelOpen(false);
     }
