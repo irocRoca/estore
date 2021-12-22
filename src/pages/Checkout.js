@@ -32,9 +32,7 @@ const Checkout = () => {
 
   const handleSubmit = async (e, data) => {
     e.preventDefault();
-    console.log("IN HERE RAN");
-    const res = await checkoutCart(); // Returns cart
-    // REDIRECT to orders page
+    await checkoutCart();
     navigate("/orders");
   };
 

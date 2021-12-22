@@ -66,7 +66,6 @@ const Button = styled.button`
 `;
 
 const OrderItem = ({ order }) => {
-  console.log(order, "IN PRODUT");
   return (
     <Row>
       <Data>{order._id.slice(-5).toUpperCase()}</Data>

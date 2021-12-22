@@ -83,14 +83,9 @@ export default function Login({ viewSwitch, handleModalClose }) {
     e.preventDefault();
     setErrors(null);
     const res = await loginUser({ email, password });
-    console.log(res, "FROM SERVER");
     if (res.error) {
-      // we had errors need to diplay
       setErrors(res);
     } else {
-      // Successfully signed up
-      // Need to close model update user context
-      console.log(res);
       setUser(res);
       setModelOpen(false);
     }
@@ -101,8 +96,8 @@ export default function Login({ viewSwitch, handleModalClose }) {
       {errors && (
         <Message>
           <h4>Error</h4>
-          {Object.values(errors).map((item) => (
-            <p>{item}</p>
+          {Object.values(errors).map((item, index) => (
+            <p key={index}>{item}</p>
           ))}
         </Message>
       )}

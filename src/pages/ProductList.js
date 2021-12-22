@@ -6,8 +6,8 @@ import { device } from "../helper/sizes";
 import { globalContext } from "../context/global";
 
 const Header = styled.h1`
-  margin: 60px 20px;
-  color: #303030;
+  margin: 40px 20px 20px 20px;
+  color: #535461;
 `;
 
 const Container = styled.div`
@@ -69,7 +69,8 @@ const Price = styled.p``;
 const ProductList = () => {
   const [products, setProducts] = useState(null);
   let navigate = useNavigate();
-  const { user, setCartItems } = useContext(globalContext);
+  const { user, setCartItems, setCartOpen, setModelOpen } =
+    useContext(globalContext);
 
   useEffect(() => {
     const getData = async () => {
@@ -82,10 +83,12 @@ const ProductList = () => {
   const handleAddToCart = async (e, id) => {
     if (!user) {
       // Open model
+      setModelOpen(true);
     } else {
       const res = await addToCart(id);
       // Should return the new cart and update the cart
       setCartItems(res);
+      setCartOpen(true);
     }
   };
   // Return a skeletion of 4 books loading..
@@ -108,7 +111,7 @@ const ProductList = () => {
                 <Title>{item.title}</Title>
                 <Price>${item.price}</Price>
               </div>
-              <Button onClick={handleAddToCart}>+</Button>
+              <Button onClick={(e) => handleAddToCart(e, item._id)}>+</Button>
             </Wrapper>
           </Card>
         ))}

@@ -22,9 +22,7 @@ export const getProductsByFilter = async (obj) => {
 
 export const registerUser = async (user) => {
   try {
-    console.log(user);
     const res = await axios.post("/api/user/register", user);
-    console.log(res);
     return res.data;
   } catch (err) {
     console.log(err);
@@ -79,7 +77,6 @@ export const addToCart = async (id) => {
 export const updateQtyCart = async (id, qty) => {
   try {
     const res = await axios.put(`/api/orders/cart/update/${id}`, { qty });
-    console.log(res, "INSIDE UPDATE QTY");
     return res.data;
   } catch (err) {
     console.log(err);
@@ -89,7 +86,6 @@ export const updateQtyCart = async (id, qty) => {
 export const deleteItem = async (id) => {
   try {
     const res = await axios.delete(`/api/orders/cart/delete/${id}`);
-    console.log(res, "INSIDE DELETE FETCH");
     return res.data;
   } catch (err) {
     console.log(err);

@@ -13,6 +13,7 @@ const ProductContainer = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  color: #535461;
 
   @media ${device.tablet} {
     flex-direction: row;
@@ -159,7 +160,7 @@ const ShipSubHeading = styled.h5`
 const ProductDesc = ({ id }) => {
   const [active, setActive] = useState(null);
   const [product, setProduct] = useState(null);
-  const { user, setCartItems } = useContext(globalContext);
+  const { user, setCartItems, setCartOpen } = useContext(globalContext);
   const sizes = ["S", "M", "L", "XL"];
 
   useEffect(() => {
@@ -176,7 +177,7 @@ const ProductDesc = ({ id }) => {
     } else {
       const res = await addToCart(id);
       // Should return the new cart and update the cart
-      console.log(res);
+      setCartOpen(true);
       setCartItems(res);
     }
   };

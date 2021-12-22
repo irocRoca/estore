@@ -1,11 +1,25 @@
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebookSquare,
+  faInstagramSquare,
+  faTwitterSquare,
+} from "@fortawesome/free-brands-svg-icons";
+import {
+  faEnvelopeOpenText,
+  faPhone,
+  faMapMarkerAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
+// faEnvelopeOpenText
+// fa-phone
+// fa-map-marker-alt
 import { device } from "../helper/sizes";
-
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 30px auto;
+  color: #535461;
 
   &::before {
     content: "";
@@ -21,6 +35,7 @@ const Wrapper = styled.div`
     flex-direction: row;
     margin: 30px auto 0 auto;
     max-width: 1200px;
+    justify-content: center;
   }
 `;
 const Section = styled.div`
@@ -87,18 +102,19 @@ const Footer = () => {
           the majority.
         </Desc>
         <MediaContainer>
-          <i
-            className="fab fa-facebook-square"
-            style={{ color: "dodgerblue" }}
-          ></i>
-          <i
-            className="fab fa-instagram-square"
-            style={{ color: "tomato" }}
-          ></i>
-          <i
-            className="fab fa-twitter-square"
-            style={{ color: "lightskyblue" }}
-          ></i>
+          <FontAwesomeIcon
+            icon={faFacebookSquare}
+            style={{ color: "dodgerblue", margin: 5 }}
+          />
+          <FontAwesomeIcon
+            icon={faInstagramSquare}
+            style={{ color: "tomato", margin: 5 }}
+          />
+
+          <FontAwesomeIcon
+            icon={faTwitterSquare}
+            style={{ color: "lightskyblue", margin: 5 }}
+          />
         </MediaContainer>
       </Section>
       <Section>
@@ -122,14 +138,22 @@ const Footer = () => {
         <Heading>Contact</Heading>
         <ContactWrapper>
           <Contact>
-            <i className="fas fa-map-marker-alt"></i>123 SW 456 ST, Miami FL,
-            98765
+            <FontAwesomeIcon
+              icon={faMapMarkerAlt}
+              style={{ marginRight: 10 }}
+            />
+            123 SW 456 ST, Miami FL, 98765
           </Contact>
           <Contact>
-            <i className="fas fa-phone"></i>+1 305 989 4567
+            <FontAwesomeIcon icon={faPhone} style={{ marginRight: 10 }} />
+            +1 305 989 4567
           </Contact>
           <Contact>
-            <i className="fas fa-envelope-open-text"></i>contact@estore.com
+            <FontAwesomeIcon
+              icon={faEnvelopeOpenText}
+              style={{ marginRight: 10 }}
+            />
+            contact@estore.com
           </Contact>
         </ContactWrapper>
       </Section>

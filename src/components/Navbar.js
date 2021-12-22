@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { globalContext } from "../context/global";
 import { logoutUser } from "../services/fetch";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 const Wrapper = styled.div`
   display: flex;
@@ -29,6 +31,9 @@ const Logo = styled.div`
   margin: 0;
   > a {
     font-size: 30px;
+    &:hover {
+      border-bottom: 1px solid #535461;
+    }
   }
 `;
 const Links = styled(Link)`
@@ -39,10 +44,6 @@ const Links = styled(Link)`
 
   > i {
     font-size: 18px;
-  }
-
-  &:hover {
-    color: red;
   }
 `;
 
@@ -85,7 +86,7 @@ const Navbar = () => {
           <Button onClick={() => setModelOpen(true)}>Login</Button>
         )}
         <Button onClick={() => setCartOpen(true)}>
-          <i className="fas fa-shopping-cart"></i>
+          <FontAwesomeIcon icon={faShoppingCart} />
         </Button>
       </Right>
     </Wrapper>

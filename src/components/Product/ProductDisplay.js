@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { device } from "../../helper/sizes";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faCartPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Product = styled.div`
   width: 170px;
@@ -67,10 +70,10 @@ const ProductDisplay = ({ product, handleAddToCart }) => {
     <Product url={product.image}>
       <Info>
         <Icon onClick={() => navigate(`/product/${product._id}`)}>
-          <i className="fas fa-search"></i>
+          <FontAwesomeIcon icon={faSearch} />
         </Icon>
         <Icon onClick={(e) => handleAddToCart(e, product._id)}>
-          <i className="fas fa-cart-plus"></i>
+          <FontAwesomeIcon icon={faCartPlus} />
         </Icon>
       </Info>
     </Product>

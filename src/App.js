@@ -12,6 +12,7 @@ import Cart from "./components/Cart";
 import ProductList from "./pages/ProductList";
 import Checkout from "./pages/Checkout";
 import Orders from "./pages/Orders";
+import ProctectedRoute from "./components/ProctectedRoute";
 
 const Container = styled.div`
   max-width: 1200px;
@@ -27,8 +28,22 @@ function App() {
         <Cart />
         <Container>
           <Routes>
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/checkout" element={<Checkout />} />
+            <Route
+              path="/orders"
+              element={
+                <ProctectedRoute>
+                  <Orders />
+                </ProctectedRoute>
+              }
+            />
+            <Route
+              path="/checkout"
+              element={
+                <ProctectedRoute>
+                  <Checkout />
+                </ProctectedRoute>
+              }
+            />
             <Route path="/products" element={<ProductList />} />
             <Route path="/product/:id" element={<Product />} />
             <Route path="/" element={<Home />} />
