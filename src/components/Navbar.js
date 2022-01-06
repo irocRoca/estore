@@ -41,6 +41,7 @@ const Links = styled(Link)`
   text-decoration: none;
   color: #535461;
   font-size: 16px;
+  font-weight: 500;
 
   > i {
     font-size: 18px;
@@ -79,7 +80,7 @@ const Navbar = () => {
       <Right>
         {user ? (
           <>
-            <Button>{user.name}</Button>
+            <Links to="/orders">{user.name}</Links>
             <Button onClick={handleLogout}>Logout</Button>
           </>
         ) : (

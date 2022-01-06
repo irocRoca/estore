@@ -134,6 +134,7 @@ const Cart = () => {
   };
 
   const handleDelete = async (id) => {
+    console.log("delte");
     const res = await deleteItem(id);
     setCartItems(res);
   };

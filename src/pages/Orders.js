@@ -5,7 +5,7 @@ import { device } from "../helper/sizes";
 import { getOrders } from "../services/fetch";
 
 const Container = styled.div`
-  height: calc(80vh - 60px);
+  min-height: calc(80vh - 60px);
   padding: 40px;
 `;
 const Title = styled.h1`

@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -49,8 +52,8 @@ const Item = ({ handleDelete, product }) => {
         <Price>${product.extPrice}</Price>
         <Quantity>Qty: {product.qty}</Quantity>
       </Wrapper>
-      <Close onClick={() => handleDelete}>
-        <i className="fas fa-times"></i>
+      <Close onClick={() => handleDelete(product.item._id)}>
+        <FontAwesomeIcon icon={faTimes} />
       </Close>
     </Container>
   );

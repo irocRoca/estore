@@ -91,6 +91,21 @@ export default function Login({ viewSwitch, handleModalClose }) {
     }
   };
 
+  const handleDemo = async (e) => {
+    e.preventDefault();
+    setErrors(null);
+    const res = await loginUser({
+      email: "test1@test.com",
+      password: "123456",
+    });
+    if (res.error) {
+      setErrors(res);
+    } else {
+      setUser(res);
+      setModelOpen(false);
+    }
+  };
+
   return (
     <Container>
       {errors && (
@@ -127,6 +142,9 @@ export default function Login({ viewSwitch, handleModalClose }) {
         </Button>
         <Subtext>
           Don't have an account yet? <span onClick={viewSwitch}>Sign up</span>
+        </Subtext>
+        <Subtext>
+          <span onClick={handleDemo}>Demo Account</span>
         </Subtext>
       </Wrapper>
     </Container>

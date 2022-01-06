@@ -27,7 +27,10 @@ const Checkout = () => {
 
   const handleDelete = async (id) => {
     const res = await deleteItem(id);
-    setCartItems(res);
+    if (res.lineItems.length < 1) {
+      setCartItems(res);
+      navigate("/");
+    }
   };
 
   const handleSubmit = async (e, data) => {
